@@ -1,0 +1,37 @@
+/* Card.module.css */
+
+.card {
+  position: relative; /* Required for positioning the second image */
+  width: 100vw; /* Make the card full width of the viewport */
+  height: 100vh; /* Make the card full height of the viewport */
+  display: flex;
+  justify-content: flex-start; /* Align content to the start (left side) */
+  align-items: center;
+  overflow: hidden; /* Hide overflow content */
+}
+
+.full-screen-image {
+  width: 65%; /* Set the width of the image */
+  max-height: 100%; /* Allow the image to take the full height of the card */
+  border: 2px solid #ccc; /* Add a border with 2px width and gray color */
+  border-radius: 50px; /* Add border radius for rounded corners */
+  box-shadow: 10px 30px 10px rgba(140, 152, 27, 0.2); /* Add a shadow effect */
+  position: absolute; /* Position the first image absolutely */
+  top: 0; /* Align the first image to the top of the card */
+  left: 0; /* Align the first image to the left of the card */
+}
+
+.second-image {
+  width: 40%; /* Set the width of the second image */
+  max-height: 100%; /* Allow the second image to take the full height of the card */
+  position: absolute; /* Position the second image absolutely */
+  top: auto; /* Reset top positioning */
+  left: 80%; /* Align the second image horizontally centered */
+  bottom: 60%; /* Align the bottom of the second image at 60% of the card's height */
+  transform: translate(-50%, 50%); /* Center the second image precisely */
+  z-index: 1; /* Ensure the second image is above the first image */
+  border: 2px solid #ccc; /* Add a border with 2px width and gray color */
+  border-radius: 40px; /* Add border radius for rounded corners */
+  box-shadow: 10px 30px 10px rgba(140, 152, 27, 0.2); /* Add a shadow effect */
+}
+
