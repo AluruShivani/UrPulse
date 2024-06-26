@@ -1,0 +1,17 @@
+package com.example.entity;
+
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Document(collection="user")
+@Data
+public class User {
+	
+	@NotBlank
+	@Indexed(unique = true)
+	private int userId;
+
+}

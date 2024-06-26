@@ -1,0 +1,42 @@
+package com.example.entity;
+
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Document(collection="doctor")
+@Data
+public class Doctor {
+	
+	@NotBlank
+	@Indexed(unique = true)
+	private int doctorId;
+	
+	@NotBlank
+	private String doctorName;
+	
+	@NotBlank
+	private String gender;
+	
+	@NotBlank
+	private String mobile;
+	
+	@NotBlank
+	@Indexed(unique = true)
+	private String email;
+	
+	@NotBlank
+	private String password;
+	
+	@NotBlank
+	private String specialization;
+	
+	
+	
+	@NotBlank
+	private String certificate;
+	
+
+}

@@ -1,0 +1,73 @@
+package com.example.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.entity.BankAccount;
+
+import com.example.service.BankAccountService;
+import com.example.service.DatabaseaSequencesGeneratorService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+@RestController
+@RequestMapping("api/v1")
+public class BankAccountController {
+	
+	@Autowired
+	private BankAccountService bankaccountService;
+	
+	@Autowired
+    private DatabaseaSequencesGeneratorService databaseaSequencesGeneratorService;
+	
+	@PostMapping("addBankaccount")
+	public BankAccount createBAnkAccount(@RequestBody  BankAccount banckaccount) {
+		banckaccount.setId(databaseaSequencesGeneratorService.generateSequence(BankAccount.SEQUENCE_NAME));
+		return bankaccountService.createBankAccount(banckaccount);
+	}
+	
+	@GetMapping("getBankAccounctById/{id}")
+    public Optional<BankAccount> getBankAccounctById(@PathVariable("id") long id) {
+        return bankaccountService.getBankAccountById(id);
+    }
+	
+	@GetMapping("/getAllBankAccounts")
+    public List<BankAccount> getAllBankAccounts() {
+        return bankaccountService.getAllBankAccounts();
+    }
+
+    @DeleteMapping("deleteBankAccounts/{id}")
+    public void deleteBankAccounts(@PathVariable("id") long id) {
+    	bankaccountService.deleteBankAccountById(id);
+    }
+    
+    @PutMapping(value="/updateBankAccounts/{id}")
+  	public ResponseEntity<Object> updateBankAccounts(@PathVariable("id")int id,@RequestBody BankAccount banckaccount){
+    	BankAccount banckaccount1;
+  		boolean flag;
+  		if(bankaccountService.isBankAccountExits(id)) {
+  			flag=bankaccountService.updateBankAccount(banckaccount);
+  		}else {
+  			flag=false;
+  		}
+  		return new ResponseEntity<>(flag,HttpStatus.OK);
+  	}
+    
+    @GetMapping("/accounts/user/{userId}")
+    public List<BankAccount> getBankAccountsByUserId(@PathVariable Long userId) {
+        return bankaccountService.getBankAccountsByUserId(userId);
+    }
+	
+
+}
